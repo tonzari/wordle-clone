@@ -20,7 +20,7 @@ function App() {
         return [...Array(5)].map(() => {
           return {
             letter: ' ',
-            color: 'incorrect'
+            color: 'empty'
           }
         })
       })
