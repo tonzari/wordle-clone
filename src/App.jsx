@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import data from './data/answers.json'
 import WinModal from './WinModal'
+import GameBoard from './GameBoard'
 
 function App() {
 
@@ -81,15 +82,7 @@ function App() {
 
       <h1>Wordle Clone</h1>     
       
-      <div className='gameboard'>
-        {
-          gameBoardData.map((row) => {
-            return row.map((tile,i) => {
-              return <div key={i} className={tile.color + " tile"}>{tile.letter}</div>
-            })
-          })
-        }
-      </div>
+      <GameBoard gameBoardData={gameBoardData}/>
 
       <form onSubmit={(e)=>{handleGuess(e)}}>
         <div>
