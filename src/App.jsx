@@ -71,7 +71,7 @@ function App() {
     // add random feature
     // for now always return 0 index
 
-    return data.answers[0]
+    return data.answers[2]
   }
 
   return (

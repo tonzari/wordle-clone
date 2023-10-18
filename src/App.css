@@ -26,13 +26,13 @@ body {
   box-shadow:inset 0px 0px 0px 4px #444;
   display: inline-block;
   font-size: 2rem;
-  line-height: 4.5rem;
+  line-height: 4.6rem;
   text-transform: capitalize;
   justify-content: center;
-  height: 4.5rem;
+  height: 4.6rem;
   text-align: center;
   vertical-align: middle;
-  width: 4.5rem;
+  width: 4.6rem;
 }
 
 .green {
@@ -48,4 +48,13 @@ body {
 .incorrect {
   background-color: #444;
   box-shadow: none;
+}
+
+.win-modal {
+  background-color: #111;
+  border: #fff solid 1px;
+  color: #fff;
+  height: 95vh;
+  outline: none;
+  width: 95vw;
 }
