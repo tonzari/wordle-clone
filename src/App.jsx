@@ -21,10 +21,13 @@ function App() {
   ];
 
   useEffect(() => {
+    
     setDictionary(new Typo(`${language}`, false, false, { dictionaryPath: "dictionaries" }))
+    
     const nextAnswer = getRandomAnswer(language)
     setAnswer(nextAnswer)
     setCurrentRow(0)
+    setGameState('playing')
 
     const emptyBoard = () => {
       return [...Array(6)].map(() => {
