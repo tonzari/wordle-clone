@@ -16,7 +16,7 @@ export default function EndGameModal({gameState, answer}){
             onClick={()=>{dialogElement.current.close()}}
             initial={{opacity:0}}
             animate={{opacity:.95}}
-            transition={{duration:2, ease:'anticipate'}}
+            transition={{duration:1, ease:'anticipate', delay:1}}
         >
             {gameState==="won" 
                 ? <h1>You won!</h1> 
