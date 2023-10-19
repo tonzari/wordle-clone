@@ -60,8 +60,14 @@ function App() {
     setCurrentRow(currentRow + 1)
     setGuess('')
 
-    if(guess === answer) setGameState("won")
-    if(currentRow + 1 === 6) setGameState("lost")
+    if(guess === answer) {
+      setGameState("won")
+      return
+    }
+    if(currentRow + 1 === 6) {
+      setGameState("lost")
+      return
+    }
   }
 
   function checkIsValidWord(guess) {
