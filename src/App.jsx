@@ -6,15 +6,22 @@ import GameBoard from './GameBoard'
 
 function App() {
 
+  const [language, setLanguage] = useState('en')
   const [guess, setGuess] = useState('')
   const [answer, setAnswer] = useState('')
   const [gameBoardData, setGameBoardData] = useState([])
   const [currentRow, setCurrentRow] = useState(0)
   const [gameState, setGameState] = useState('playing')
 
+  const VALID_LANGUAGES = [
+    'en',
+    'es'
+  ];
+
   useEffect(() => {
-    const nextAnswer = getRandomAnswer()
+    const nextAnswer = getRandomAnswer(language)
     setAnswer(nextAnswer)
+    setCurrentRow(0)
 
     const emptyBoard = () => {
       return [...Array(6)].map(() => {
@@ -29,7 +36,7 @@ function App() {
 
     setGameBoardData(emptyBoard)
 
-  },[])
+  },[language])
   
   function handleGuess(event){
     event.preventDefault()
@@ -77,14 +84,44 @@ function App() {
     return true
   }
 
-  function getRandomAnswer() {
-    const randomIndex = Math.floor(Math.random() * data.answers.length);
+  function getRandomAnswer(languageCode) {
+    const randomIndex = Math.floor(Math.random() * data.five[languageCode].length);
 
-    return data.answers[randomIndex]
+    return data.five[languageCode][randomIndex]
   }
 
   return (
     <div className='site-wrapper'>
+
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <fieldset>
+          <legend>
+            Select language:
+          </legend>
+          
+          {VALID_LANGUAGES.map(option => (
+            <div key={option}>
+              <input
+                type="radio"
+                name="current-language"
+                id={option}
+                value={option}
+                checked={option === language}
+                onChange={event => {
+                  setLanguage(event.target.value);
+                }}
+              />
+              <label htmlFor={option}>
+                {option}
+              </label>
+            </div>
+          ))}
+        </fieldset>
+      </form>
 
       {gameState !== 'playing' && <EndGameModal gameState={gameState} answer={answer} />}
 
@@ -102,7 +139,7 @@ function App() {
             type="text" 
             name="guess"
             value={guess}
-            onChange={(event)=>{setGuess(event.target.value)}}
+            onChange={(event)=>{setGuess(event.target.value.toLowerCase())}}
           />
         </div>
       </form>
