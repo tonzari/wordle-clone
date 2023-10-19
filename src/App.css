@@ -50,11 +50,12 @@ body {
   box-shadow: none;
 }
 
-.win-modal {
+.end-game-modal {
   background-color: #111;
   border: #fff solid 1px;
   color: #fff;
-  height: 95vh;
+  height: 50vh;
   outline: none;
-  width: 95vw;
+  text-align: center;
+  width: 50vw;
 }

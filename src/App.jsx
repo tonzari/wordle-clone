@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import data from './data/answers.json'
-import WinModal from './WinModal'
+import EndGameModal from './EndGameModal'
 import GameBoard from './GameBoard'
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
   const [answer, setAnswer] = useState('')
   const [gameBoardData, setGameBoardData] = useState([])
   const [currentRow, setCurrentRow] = useState(0)
-  const [hasWon, setHasWon] = useState(false)
+  const [gameState, setGameState] = useState('playing')
 
   useEffect(() => {
     const nextAnswer = getRandomAnswer()
@@ -34,11 +34,13 @@ function App() {
   function handleGuess(event){
     event.preventDefault()
 
+    // store each letter of guess in this array
     const completedRow = [];
 
     if(guess.length !== 5) return
     if(!checkIsValidWord(guess)) return
 
+    // process each letter, add a color to be used for styling the tile
     Array.from(guess).forEach((letter, index) => {
       if(letter===answer.charAt(index)) {
         completedRow.push({letter, color:'green'})
@@ -51,14 +53,15 @@ function App() {
       }
     })
 
-    // state    
+    // replace empty gameboard row with new completedRow, set state  
     const newGameData = [...gameBoardData]
     newGameData[currentRow] = completedRow
     setGameBoardData(newGameData)
-    setCurrentRow(currentRow+1)
+    setCurrentRow(currentRow + 1)
     setGuess('')
 
-    if(guess === answer) setHasWon(true)
+    if(guess === answer) setGameState("won")
+    if(currentRow + 1 === 6) setGameState("lost")
   }
 
   function checkIsValidWord(guess) {
@@ -69,16 +72,15 @@ function App() {
   }
 
   function getRandomAnswer() {
-    // add random feature
-    // for now always return 0 index
+    const randomIndex = Math.floor(Math.random() * data.answers.length);
 
-    return data.answers[2]
+    return data.answers[randomIndex]
   }
 
   return (
     <div className='site-wrapper'>
 
-      {hasWon && <WinModal />}
+      {gameState !== 'playing' && <EndGameModal gameState={gameState} answer={answer} />}
 
       <h1>Wordle Clone</h1>     
       
@@ -88,6 +90,9 @@ function App() {
         <div>
           <label htmlFor="guess">Enter word: </label>
           <input
+            required
+            minLength={5}
+            maxLength={5}
             type="text" 
             name="guess"
             value={guess}

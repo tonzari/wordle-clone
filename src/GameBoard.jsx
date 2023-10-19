@@ -13,8 +13,12 @@ export default function GameBoard({gameBoardData}){
                             key={`${gridPos}-${tile.letter}`} 
                             className={tile.color + " tile"}
                             initial={{y: -5, rotateY:90}}
-                            animate={{y: 0, rotateY:0}}
-                            transition={{duration:.05, delay:y*0.15, ease:'circIn'}}
+                            animate={{
+                                y: [0,0,-5,5,0], 
+                                rotateY:[90,90,120,0,0],
+                                scale:[.8,.5,1.3,1.1,1]
+                            }}
+                            transition={{duration:.3, delay:y*0.15, ease:'circIn'}}
                         >
                             {tile.letter}
                         </motion.div>
