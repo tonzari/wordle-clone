@@ -1,6 +1,6 @@
 {
     "five": {
-        "en": [
+        "en_US": [
             "blink",
             "blend",
             "brave",
@@ -30,7 +30,7 @@
             "sword",
             "trick"
         ],
-        "es": [
+        "es_MX": [
             "silla",
             "perro",
             "gafas",

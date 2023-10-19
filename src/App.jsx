@@ -3,10 +3,12 @@ import './App.css'
 import data from './data/answers.json'
 import EndGameModal from './EndGameModal'
 import GameBoard from './GameBoard'
+import Typo from 'typo-js'
 
 function App() {
 
-  const [language, setLanguage] = useState('en')
+  const [dictionary, setDictionary] = useState('')
+  const [language, setLanguage] = useState('en_US')
   const [guess, setGuess] = useState('')
   const [answer, setAnswer] = useState('')
   const [gameBoardData, setGameBoardData] = useState([])
@@ -14,11 +16,12 @@ function App() {
   const [gameState, setGameState] = useState('playing')
 
   const VALID_LANGUAGES = [
-    'en',
-    'es'
+    'en_US',
+    'es_MX'
   ];
 
   useEffect(() => {
+    setDictionary(new Typo(`${language}`, false, false, { dictionaryPath: "dictionaries" }))
     const nextAnswer = getRandomAnswer(language)
     setAnswer(nextAnswer)
     setCurrentRow(0)
@@ -77,11 +80,8 @@ function App() {
     }
   }
 
-  function checkIsValidWord(guess) {
-    // add spell check feature
-    // for now just alwasy return true
-    
-    return true
+  function checkIsValidWord(guess) {    
+    return dictionary.check(guess)
   }
 
   function getRandomAnswer(languageCode) {
